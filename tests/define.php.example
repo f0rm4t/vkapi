@@ -1,0 +1,4 @@
+<?php
+
+define('TOKEN', '<your token>');
+define('VK_USER_ID', 1);
