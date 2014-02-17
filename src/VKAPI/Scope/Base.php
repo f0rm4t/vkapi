@@ -14,7 +14,7 @@ class Base
     /** @var Request */
     protected $request;
     /** @var string Префикс, добавляемый к имени метода, для формирования корректного запроса к API */
-    protected $scope_prefix;
+    protected $scope_prefix = 'base';
 
     /**
      * @param Request $request
@@ -33,7 +33,8 @@ class Base
      */
     public function __call($method, array $arguments = array())
     {
-        $method = $this->getPrefix() . '.' . $method;
+        $prefix = $this->getPrefix();
+        $method = ($prefix != 'base' ? $prefix . '.' : '') . $method;
         $result = $this->getRequest()->execute($method, reset($arguments));
 
         return $result;
