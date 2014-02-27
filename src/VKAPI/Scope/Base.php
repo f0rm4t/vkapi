@@ -33,9 +33,10 @@ class Base
      */
     public function __call($method, array $arguments = array())
     {
-        $prefix = $this->getPrefix();
-        $method = ($prefix != 'base' ? $prefix . '.' : '') . $method;
-        $result = $this->getRequest()->execute($method, reset($arguments));
+        $prefix    = $this->getPrefix();
+        $method    = ($prefix != 'base' ? $prefix . '.' : '') . $method;
+        $arguments = reset($arguments) ?: [];
+        $result    = $this->getRequest()->execute($method, $arguments);
 
         return $result;
     }
