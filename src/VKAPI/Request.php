@@ -129,12 +129,13 @@ class Request
     protected function decodeResponse($response)
     {
         $data = json_decode($response);
-        if ($data === null) {
-            throw new JSONException('Empty VK response');
-        }
 
         if ($error = json_last_error()) {
             throw new JSONException($error);
+        }
+
+        if ($data === null) {
+            throw new JSONException('Empty VK response');
         }
 
         return $data;
