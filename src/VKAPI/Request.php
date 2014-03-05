@@ -130,7 +130,11 @@ class Request
     {
         $data = json_decode($response);
         if ($data === null) {
-            throw new JSONException(json_last_error());
+            throw new JSONException('Empty VK response');
+        }
+
+        if ($error = json_last_error()) {
+            throw new JSONException($error);
         }
 
         return $data;
