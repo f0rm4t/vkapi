@@ -69,7 +69,13 @@ class Request
         $data      = $this->decodeResponse($response);
 
         if (isset($data->error)) {
-            $exception = new VKException($data->error->error_msg, $data->error->error_code);
+            $errors = $data->error;
+        } elseif (isset($data->execute_errors))  {
+            $errors = reset($data->execute_errors);
+        }
+
+        if ( ! empty($errors)) {
+            $exception = new VKException($errors->error_msg, $errors->error_code);
             $exception->setData($data->error);
 
             throw $exception;
