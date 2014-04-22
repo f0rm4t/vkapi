@@ -76,7 +76,7 @@ class Request
 
         if ( ! empty($errors)) {
             $exception = new VKException($errors->error_msg, $errors->error_code);
-            $exception->setData($data->error);
+            $exception->setData($errors);
 
             throw $exception;
         }
